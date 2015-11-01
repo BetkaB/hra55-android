@@ -40,4 +40,79 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    
+    public void sendAnswer(View v){
+        EditText answerView = (EditText) findViewById(R.id.editTextAnswer);
+        TextView questionView = (TextView) findViewById(R.id.textViewQuestion);
+        String question = questionView.getText().toString();
+        String answer = answerView.getText().toString();
+
+        /*URL url = null;
+        try {
+            url = new URL("http://hra55-1108.appspot.com/command");
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        HttpsURLConnection conn = null;
+        try {
+            conn = (HttpsURLConnection) url.openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            conn.setRequestMethod("POST");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        ContentValues values = new ContentValues();
+        values.put("action", "answer");
+        values.put("q", question);
+        values.put("a", answer);
+
+        Base64.OutputStream os = null;
+        try {
+            os = (Base64.OutputStream) conn.getOutputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.write(String.valueOf(values));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            writer.flush();
+            writer.close();
+            os.close();
+            conn.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        */
+
+        try {
+            JSONObject prop = new JSONObject();
+            prop.put("action","answer");
+            prop.put("q",question);
+            prop.put("a",answer);
+            mixpanel.track("answer",prop);
+
+        } catch (JSONException e){
+            Log.e("sendAnswer", "Unable to add properties to JSSONObject");
+        }
+
+
+
+    }
+}
 }
